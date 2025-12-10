@@ -38,16 +38,27 @@ Hardware profiles define the compute resources available to workbenches and mode
 
 2. Review the configuration of each profile to understand the resource allocations.
 
-### Step 3: Create or Modify Hardware Profiles
+### Step 3: Create a New Hardware Profile
 
-?> **Note** The exact steps for creating hardware profiles may vary depending on your OpenShift AI version. Consult your administrator or the OpenShift AI documentation for specific instructions.
+For this workshop, you will create a new hardware profile with the following configuration:
 
-For this workshop, ensure you have at least one hardware profile configured with:
+1. Click **Create hardware profile** or **Add hardware profile**
 
-* **GPU Type**: NVIDIA L4 (or equivalent)
-* **GPU Count**: 1 (shared) or more
-* **Memory**: Minimum 32Gi
-* **CPU**: Minimum 8 cores
+2. Enter the following details:
+
+   **Name**: `ai-roadshow-profile`
+
+3. Configure the resources as follows:
+
+   | Resource name | Resource identifier | Resource type | Default | Minimum allowed | Maximum allowed |
+   |---------------|---------------------|---------------|---------|------------------|-----------------|
+   | CPU | `cpu` | CPU | 1 Cores | 1 Cores | 2 Cores |
+   | Memory | `memory` | Memory | 12 GiB | 1 GiB | 24 GiB |
+   | GPU | `nvidia.com/gpu` | Accelerator | 1 | 1 | 1 |
+
+4. Click **Create** or **Save** to create the hardware profile
+
+?> **Note** The GPU resource identifier `nvidia.com/gpu` is the standard Kubernetes resource name for NVIDIA GPUs. Ensure your cluster has GPU nodes configured and the GPU Operator installed for this resource to be available.
 
 ### Step 4: Verify Hardware Profile Availability
 
