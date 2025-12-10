@@ -27,7 +27,7 @@ Hardware profiles define the compute resources available to workbenches and mode
    
    <a href="https://console-openshift-console.apps.<CLUSTER_DOMAIN>" target="_blank">OpenShift Console</a>
 
-2. Navigate to **Red Hat OpenShift AI** → **Settings** → **Cluster settings** → **Hardware profiles**
+2. Navigate to **OpenShift AI** → **Settings** → **Environment Setup** → **Hardware profiles**
 
 ### Step 2: Review Existing Hardware Profiles
 
