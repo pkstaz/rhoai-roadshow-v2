@@ -13,54 +13,10 @@ In this activity, you will:
 ## Prerequisites
 
 * You have admin access to your OpenShift cluster
-* You have access to your cloud provider (AWS, Azure, GCP) to provision instances
-* Your cluster has the necessary permissions to create new nodes
 
 ## Scale Worker Nodes
 
-### Step 1: Check Current Cluster Resources
-
-Before scaling, check your current cluster resources:
-
-1. Login to your OpenShift cluster:
-
-```bash
-oc login --server=https://api.<CLUSTER_DOMAIN>:6443 -u admin -p <password>
-```
-
-2. Check current nodes:
-
-```bash
-oc get nodes
-```
-
-3. Check current worker nodes:
-
-```bash
-oc get nodes -l node-role.kubernetes.io/worker
-```
-
-4. Check available resources:
-
-```bash
-oc top nodes
-```
-
-### Step 2: Determine Scaling Requirements
-
-For this workshop, you should have sufficient resources to run:
-* Multiple workbenches
-* Model serving instances
-* Vector databases
-* Other supporting workloads
-
-Recommended minimum:
-* **Worker Nodes**: At least 2-3 worker nodes
-* **CPU**: Minimum 8 cores per node
-* **Memory**: Minimum 32 GiB per node
-* **Storage**: Adequate storage for models and data
-
-### Step 3: Scale Worker Nodes via OpenShift Console
+### Step 1: Scale Worker Nodes via OpenShift Console
 
 1. Login to your OpenShift cluster console:
 
@@ -84,7 +40,7 @@ Recommended minimum:
 
 ?> **Note** The estimated time for node provisioning is **5 to 10 minutes**. You can monitor the progress in the MachineSet details page.
 
-### Step 4: Verify New Nodes are Ready
+### Step 2: Verify New Nodes are Ready
 
 1. Wait for the new node to be provisioned. This typically takes **5 to 10 minutes**.
 
@@ -117,46 +73,6 @@ oc describe node <node-name>
 ```bash
 oc top nodes
 ```
-
-### Step 5: Verify Cluster Capacity
-
-1. Check overall cluster capacity:
-
-```bash
-oc get nodes -o custom-columns=NAME:.metadata.name,CPU:.status.capacity.cpu,MEMORY:.status.capacity.memory
-```
-
-2. Verify you have enough resources for the workshop workloads.
-
-## Verification Checklist
-
-- [ ] Additional worker nodes are in `Ready` state
-- [ ] Nodes have sufficient CPU and memory resources
-- [ ] Cluster has adequate capacity for workshop workloads
-- [ ] All nodes are schedulable and healthy
-
-## Troubleshooting
-
-If nodes are not joining the cluster:
-
-1. Check Machine status:
-   ```bash
-   oc get machines -n openshift-machine-api
-   oc describe machine <machine-name> -n openshift-machine-api
-   ```
-
-2. Check node conditions:
-   ```bash
-   oc get nodes
-   oc describe node <node-name>
-   ```
-
-3. Review MachineSet events:
-   ```bash
-   oc get events -n openshift-machine-api --sort-by='.lastTimestamp'
-   ```
-
-4. Check cloud provider quotas and limits to ensure you can provision additional instances.
 
 ## Next Steps
 
