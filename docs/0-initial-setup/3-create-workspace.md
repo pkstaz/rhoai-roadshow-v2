@@ -33,7 +33,7 @@ After logging in to OpenShift AI, you need to create a project and workspace whe
 
 ## Next Steps
 
-Now that you have created your workspace, you're ready to create a workbench. Click the link below to proceed:
+Now that you have created your workspace, you're ready to deploy foundation models. Click the link below to proceed:
 
-* [🖥️ Create Workbench](0-initial-setup/5-create-workbench.md)
+* [🤖 Deploy Foundation Models](0-initial-setup/4-deploy-foundation-models.md)
 

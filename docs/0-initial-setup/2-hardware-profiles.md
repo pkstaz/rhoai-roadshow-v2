@@ -61,7 +61,7 @@ For this workshop, you will create a new hardware profile with the following con
 
 ## Next Steps
 
-Once you have configured hardware profiles, you're ready to deploy base models. Click the link below to proceed:
+Once you have configured hardware profiles, you're ready to create a workspace. Click the link below to proceed:
 
-* [🤖 Deploy Base Models](0-initial-setup/3-deploy-base-models.md)
+* [🏗️ Create Workspace](0-initial-setup/3-create-workspace.md)
 

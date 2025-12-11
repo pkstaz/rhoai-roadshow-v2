@@ -1,6 +1,6 @@
-# 🤖 Deploy Base Models
+# 🤖 Deploy Foundation Models
 
-Before you can start working with LLMs in the workshop, you need to deploy base models that will be used throughout the exercises. This activity will guide you through deploying foundational models that are required for the LLM, RAG, and Agents modules.
+Before you can start working with LLMs in the workshop, you need to deploy foundation models that will be used throughout the exercises. This activity will guide you through deploying foundational models that are required for the LLM, RAG, and Agents modules.
 
 ## Objectives
 
@@ -20,7 +20,7 @@ In this activity, you will:
 
 ## Models Required for Workshop
 
-For this workshop, you will deploy the following base models:
+For this workshop, you will deploy the following foundation models:
 
 1. **LLM Models** (for text generation, summarization, etc.):
    * Llama 3.2 3B (instruction-tuned)
@@ -201,7 +201,7 @@ If models fail to deploy:
 
 ## Next Steps
 
-Now that you have deployed base models, you're ready to create a workspace. Click the link below to proceed:
+Now that you have deployed foundation models, you're ready to create a workbench. Click the link below to proceed:
 
-* [🏗️ Create Workspace](0-initial-setup/4-create-workspace.md)
+* [🖥️ Create Workbench](0-initial-setup/5-create-workbench.md)
 

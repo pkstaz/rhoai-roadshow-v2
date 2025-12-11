@@ -8,8 +8,9 @@ In this module, you will:
 
 * Scale worker nodes in your OpenShift cluster to ensure sufficient resources
 * Configure hardware profiles to define compute resources for your workloads
-* Deploy base models that will be used throughout the workshop
-* Create a workspace and workbench for your activities
+* Create a workspace for your activities
+* Deploy foundation models that will be used throughout the workshop
+* Create a workbench for your activities
 
 ## Prerequisites
 
@@ -21,8 +22,8 @@ In this module, you will:
 
 * [📈 Scale Worker Node](0-initial-setup/1-scale-worker-node.md)
 * [🔧 Configure Hardware Profiles](0-initial-setup/2-hardware-profiles.md)
-* [🤖 Deploy Base Models](0-initial-setup/3-deploy-base-models.md)
-* [🏗️ Create Workspace](0-initial-setup/4-create-workspace.md)
+* [🏗️ Create Workspace](0-initial-setup/3-create-workspace.md)
+* [🤖 Deploy Foundation Models](0-initial-setup/4-deploy-foundation-models.md)
 * [🖥️ Create Workbench](0-initial-setup/5-create-workbench.md)
 
 Click **Scale Worker Node** to get started.
