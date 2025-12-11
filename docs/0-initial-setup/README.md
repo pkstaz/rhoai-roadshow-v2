@@ -22,7 +22,7 @@ In this module, you will:
 
 * [📈 Scale Worker Node](0-initial-setup/1-scale-worker-node.md)
 * [🔧 Configure Hardware Profiles](0-initial-setup/2-hardware-profiles.md)
-* [🏗️ Create Project](0-initial-setup/3-create-workspace.md)
+* [🏗️ Create Project](0-initial-setup/3-create-project.md)
 * [🤖 Deploy Foundation Models](0-initial-setup/4-deploy-foundation-models.md)
 * [🖥️ Create Workbench](0-initial-setup/5-create-workbench.md)
 

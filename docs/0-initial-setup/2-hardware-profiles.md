@@ -63,5 +63,5 @@ For this workshop, you will create a new hardware profile with the following con
 
 Once you have configured hardware profiles, you're ready to create a project. Click the link below to proceed:
 
-* [🏗️ Create Project](0-initial-setup/3-create-workspace.md)
+* [🏗️ Create Project](0-initial-setup/3-create-project.md)
 
