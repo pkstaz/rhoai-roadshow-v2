@@ -217,5 +217,5 @@ If the GPU node is not showing GPUs:
 
 Now that you have GPU nodes configured, you're ready to configure hardware profiles. Click the link below to proceed:
 
-* [🔧 Configure Hardware Profiles](0-platform-setup/1-hardware-profiles.md)
+* [🔧 Configure Hardware Profiles](0-platform-setup/2-hardware-profiles.md)
 

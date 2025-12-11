@@ -13,7 +13,7 @@ In this activity, you will:
 
 ## Prerequisites
 
-* You have completed [Add GPU Node to Cluster](0-platform-setup/2-add-gpu-node.md)
+* You have completed [Add GPU Node to Cluster](0-platform-setup/1-add-gpu-node.md)
 * GPU nodes are available and ready
 * You have access to model repositories (Hugging Face, Red Hat AI validated models)
 * Sufficient storage and GPU memory for model deployment

@@ -18,8 +18,8 @@ In this module, you will:
 
 ## Agenda
 
-* [🎮 Add GPU Node to Cluster](0-platform-setup/2-add-gpu-node.md)
-* [🔧 Configure Hardware Profiles](0-platform-setup/1-hardware-profiles.md)
+* [🎮 Add GPU Node to Cluster](0-platform-setup/1-add-gpu-node.md)
+* [🔧 Configure Hardware Profiles](0-platform-setup/2-hardware-profiles.md)
 * [🤖 Deploy Base Models](0-platform-setup/3-deploy-base-models.md)
 
 Click **Add GPU Node to Cluster** to get started.
