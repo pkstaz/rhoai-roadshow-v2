@@ -1,6 +1,6 @@
 # 🤖 Deploy Foundation Models
 
-Before you can start working with LLMs in the workshop, you need to deploy foundation models that will be used throughout the exercises. This activity will guide you through deploying foundational models that are required for the LLM, RAG, and Agents modules.
+Before you can start working with LLMs in the workshop, you need to deploy foundation models that will be used throughout the exercises. This activity will guide you through deploying foundation models that are required for the LLM, RAG, and Agents modules.
 
 ## Objectives
 
