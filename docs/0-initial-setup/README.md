@@ -1,4 +1,4 @@
-# Platform Setup
+# Initial Setup
 
 Before you can start working with LLMs, RAG, and other AI capabilities, you need to configure the underlying platform infrastructure. This module will guide you through the essential setup steps to prepare your Red Hat OpenShift AI environment.
 
@@ -18,9 +18,9 @@ In this module, you will:
 
 ## Agenda
 
-* [🎮 Add GPU Node to Cluster](0-platform-setup/1-add-gpu-node.md)
-* [🔧 Configure Hardware Profiles](0-platform-setup/2-hardware-profiles.md)
-* [🤖 Deploy Base Models](0-platform-setup/3-deploy-base-models.md)
+* [🎮 Add GPU Node to Cluster](0-initial-setup/1-add-gpu-node.md)
+* [🔧 Configure Hardware Profiles](0-initial-setup/2-hardware-profiles.md)
+* [🤖 Deploy Base Models](0-initial-setup/3-deploy-base-models.md)
 
 Click **Add GPU Node to Cluster** to get started.
 

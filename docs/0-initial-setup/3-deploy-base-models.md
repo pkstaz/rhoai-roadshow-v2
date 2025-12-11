@@ -13,7 +13,7 @@ In this activity, you will:
 
 ## Prerequisites
 
-* You have completed [Add GPU Node to Cluster](0-platform-setup/1-add-gpu-node.md)
+* You have completed [Add GPU Node to Cluster](0-initial-setup/1-add-gpu-node.md)
 * GPU nodes are available and ready
 * You have access to model repositories (Hugging Face, Red Hat AI validated models)
 * Sufficient storage and GPU memory for model deployment
@@ -201,7 +201,7 @@ If models fail to deploy:
 
 ## Next Steps
 
-Congratulations! You have completed the Platform Setup module. Your environment is now ready for the workshop activities. You can proceed to:
+Congratulations! You have completed the Initial Setup module. Your environment is now ready for the workshop activities. You can proceed to:
 
 * [Working with an LLM](1-llm/README.md) - Start using the deployed models
 * [RAG](2-rag/README.md) - Use the embedding model for retrieval-augmented generation

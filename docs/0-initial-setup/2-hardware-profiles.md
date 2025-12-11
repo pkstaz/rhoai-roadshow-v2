@@ -80,5 +80,5 @@ To verify that hardware profiles are properly configured:
 
 Once you have configured hardware profiles, you're ready to deploy base models. Click the link below to proceed:
 
-* [🤖 Deploy Base Models](0-platform-setup/3-deploy-base-models.md)
+* [🤖 Deploy Base Models](0-initial-setup/3-deploy-base-models.md)
 
