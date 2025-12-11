@@ -8,7 +8,6 @@ In this activity, you will:
 
 * Understand what hardware profiles are and why they're important
 * Configure hardware profiles for different workload types
-* Verify that hardware profiles are available for use
 
 ## What are Hardware Profiles?
 
@@ -59,22 +58,6 @@ For this workshop, you will create a new hardware profile with the following con
 4. Click **Create** or **Save** to create the hardware profile
 
 ?> **Note** The GPU resource identifier `nvidia.com/gpu` is the standard Kubernetes resource name for NVIDIA GPUs. Ensure your cluster has GPU nodes configured and the GPU Operator installed for this resource to be available.
-
-### Step 4: Verify Hardware Profile Availability
-
-1. Navigate to **Red Hat OpenShift AI** → **Data Science Projects** → Select your project
-
-2. Try creating a new workbench and verify that hardware profiles are available in the dropdown
-
-3. You should see the configured hardware profiles listed as options
-
-## Verification
-
-To verify that hardware profiles are properly configured:
-
-1. Check that hardware profiles appear in the workbench creation form
-2. Verify that GPU-enabled profiles show the correct GPU type and count
-3. Ensure that resource quotas are appropriate for your workloads
 
 ## Next Steps
 
