@@ -6,8 +6,6 @@ In this exercise we will:
 
 1. Connect to the workshop environment
 
-2. Create the OpenShift AI **Project** that you will use for the entire workshop.
-
 ## Login to OpenShift AI
 
 **Pre-requisites:** You have logged on to OpenShift.  
@@ -30,22 +28,8 @@ After logging on to OpenShift you will open the OpenShift AI platform from the A
 
     ![./images/create-project.png](images/create-project.png)
 
-## Create a project
-
-1. Click the **Create project** button on the top right of the display.
-
-2. Type `ai-roadshow` in the **Name** text box.
-
-    ![images/create-project-2.png](images/create-project-2.png)  
-
-3. Click **Create**
-
-    OpenShift AI creates an empty project.
-
-    ![images/create-workbench-0.png](images/create-workbench-0.png)  
-
 ## Next Steps
 
-Now that you have created your project, you're ready to create a workspace. Click the link below to proceed:
+Now that you have logged in to OpenShift AI, you're ready to create a project and workspace. Click the link below to proceed:
 
 * [🏗️ Create Workspace](0-getting-connected/2-create-workspace.md)

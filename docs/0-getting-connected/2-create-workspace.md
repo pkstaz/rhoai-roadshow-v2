@@ -1,6 +1,20 @@
 # 🏗️ Create Workspace
 
-After creating your project, you need to set up a workspace where you'll work on the activities.
+After logging in to OpenShift AI, you need to create a project and workspace where you'll work on the activities.
+
+## Create a project
+
+1. Click the **Create project** button on the top right of the display.
+
+2. Type `ai-roadshow` in the **Name** text box.
+
+    ![images/create-project-2.png](images/create-project-2.png)  
+
+3. Click **Create**
+
+    OpenShift AI creates an empty project.
+
+    ![images/create-workbench-0.png](images/create-workbench-0.png)  
 
 ## Create a workspace
 
