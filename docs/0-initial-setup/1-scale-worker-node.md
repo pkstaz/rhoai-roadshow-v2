@@ -60,62 +60,59 @@ Recommended minimum:
 * **Memory**: Minimum 32 GiB per node
 * **Storage**: Adequate storage for models and data
 
-### Step 3: Scale Worker Nodes via Machine Set (AWS Example)
+### Step 3: Scale Worker Nodes via OpenShift Console
 
-?> **Note** The exact method for scaling nodes depends on your cloud provider. This example uses AWS Machine Sets.
+1. Login to your OpenShift cluster console:
 
-1. List existing MachineSets:
+   <a href="https://console-openshift-console.apps.<CLUSTER_DOMAIN>" target="_blank">OpenShift Console</a>
 
-```bash
-oc get machineset -n openshift-machine-api
-```
+2. Navigate to **Compute** → **MachineSet** in the left navigation menu.
 
-2. Identify the MachineSet you want to scale. Typically, you'll scale the worker MachineSet.
+3. You will see a list of MachineSets created in your cluster. The MachineSet name will look something like: `ocp-jcsl6-worker-us-east-2a`
 
-3. Scale the MachineSet by increasing replicas. For example, to add one more worker node:
+4. Select the first MachineSet in the list (typically the worker MachineSet).
 
-```bash
-oc scale machineset <machineset-name> --replicas=<desired-count> -n openshift-machine-api
-```
+5. Click on the **three dots (⋮)** menu button on the right side of the MachineSet row.
 
-Or edit the MachineSet directly:
+6. Select **Edit machine count** from the dropdown menu.
 
-```bash
-oc edit machineset <machineset-name> -n openshift-machine-api
-```
+7. In the dialog that appears, change the machine count from **0** to **1**.
 
-Change the `spec.replicas` field to the desired number of nodes.
+8. Click **Save** to apply the changes.
 
-4. Monitor the node creation:
+   The OpenShift cluster will now start provisioning a new worker node.
 
-```bash
-oc get machines -n openshift-machine-api
-oc get nodes
-```
+?> **Note** The estimated time for node provisioning is **5 to 10 minutes**. You can monitor the progress in the MachineSet details page.
 
 ### Step 4: Verify New Nodes are Ready
 
-1. Wait for the new nodes to join the cluster and become ready:
+1. Wait for the new node to be provisioned. This typically takes **5 to 10 minutes**.
+
+2. You can monitor the progress in the OpenShift Console:
+   - Navigate to **Compute** → **Machines** to see the machine being created
+   - Navigate to **Compute** → **Nodes** to see when the node joins the cluster
+
+3. Alternatively, you can check using the CLI:
+
+```bash
+oc get nodes
+```
+
+4. Wait until the new node shows as `Ready`:
 
 ```bash
 oc get nodes -w
 ```
 
-2. Check that the nodes show as `Ready`:
+You should see your new worker node in the list with status `Ready`.
 
-```bash
-oc get nodes
-```
-
-You should see your new worker nodes in the list with status `Ready`.
-
-3. Verify node resources:
+5. Verify node resources:
 
 ```bash
 oc describe node <node-name>
 ```
 
-4. Check that the nodes have sufficient resources:
+6. Check that the nodes have sufficient resources:
 
 ```bash
 oc top nodes
