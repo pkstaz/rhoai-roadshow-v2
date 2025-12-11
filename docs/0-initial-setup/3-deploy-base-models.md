@@ -201,9 +201,7 @@ If models fail to deploy:
 
 ## Next Steps
 
-Congratulations! You have completed the Initial Setup module. Your environment is now ready for the workshop activities. You can proceed to:
+Now that you have deployed base models, you're ready to create a workspace. Click the link below to proceed:
 
-* [Working with an LLM](1-llm/README.md) - Start using the deployed models
-* [RAG](2-rag/README.md) - Use the embedding model for retrieval-augmented generation
-* [Agents and Tools](3-agents-tools/README.md) - Build agentic systems with your models
+* [🏗️ Create Workspace](0-initial-setup/4-create-workspace.md)
 

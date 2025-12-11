@@ -32,4 +32,4 @@ After logging on to OpenShift you will open the OpenShift AI platform from the A
 
 Now that you have logged in to OpenShift AI, you're ready to create a project and workspace. Click the link below to proceed:
 
-* [🏗️ Create Workspace](0-getting-connected/2-create-workspace.md)
+* [🏗️ Create Workspace](0-initial-setup/4-create-workspace.md)

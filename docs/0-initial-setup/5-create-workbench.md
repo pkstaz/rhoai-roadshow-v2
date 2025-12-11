@@ -28,7 +28,7 @@ This workshop uses JupyterLab for most of the activities. In this exercise we wi
 
     OpenShift AI creates and starts the workbench.
 
-    ![images/create-workbench-3.png](images/create-workbench-2.png)
+    ![images/create-workbench-2.png](images/create-workbench-2.png)
 
     Wait for the status to change to *Running*.  
 
@@ -70,7 +70,7 @@ This workshop uses JupyterLab for most of the activities. In this exercise we wi
 
     ![images/clone-git-repo-4.png](images/clone-git-repo-4.png)
 
-9. Double click **0-get-connected.jupyterlab-workspace** to open the workspace for this activity.  
+9. Double click the appropriate `.jupyterlab-workspace` file to open the workspace for this activity.  
    JupyterLab opens the workspace. All of the notebooks you will use are visible in the *File Explorer*.  
 
     ![images/clone-git-repo-5.png](images/clone-git-repo-5.png)
@@ -121,7 +121,7 @@ Now that you know the basics, give it a try!
 
 In your workbench:
 
-1. In the _File Explorer_ open the notebook called: <a href="https://github.com/odh-labs/rhoai-roadshow-v2/blob/main/docs/0-getting-connected/notebook/0-first-jupyter-notebook.ipynb" target="_blank">0-first-jupyter-notebook.ipynb</a>
+1. In the _File Explorer_ open the notebook called: <a href="https://github.com/odh-labs/rhoai-roadshow-v2/blob/main/docs/0-initial-setup/notebook/0-first-jupyter-notebook.ipynb" target="_blank">0-first-jupyter-notebook.ipynb</a>
 
 2. Experiment by, for example, running the existing cells, adding more cells and creating functions.  
 
@@ -138,7 +138,11 @@ In your workbench:
 
 * If you want to learn more about notebooks, go to https://jupyter.org.
 
-## End of activity
+## Next Steps
 
-Congratulations and this completes this activity. Click the link below to move to the next activity.
+Congratulations! You have completed the Initial Setup module. Your environment is now ready for the workshop activities. You can proceed to:
+
+* [Working with an LLM](1-llm/README.md) - Start using the deployed models
+* [RAG](2-rag/README.md) - Use the embedding model for retrieval-augmented generation
+* [Agents and Tools](3-agents-tools/README.md) - Build agentic systems with your models
 

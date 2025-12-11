@@ -32,7 +32,13 @@ In this activity, you will:
 
 6. Select **Edit machine count** from the dropdown menu.
 
+   ![./images/scale-machineset-0.png](images/scale-machineset-0.png)
+
+
 7. In the dialog that appears, change the machine count from **0** to **1**.
+
+   ![./images/scale-machineset-1.png](images/scale-machineset-1.png)
+
 
 8. Click **Save** to apply the changes.
 
