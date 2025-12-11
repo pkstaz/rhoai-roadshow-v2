@@ -13,7 +13,6 @@ In this activity, you will:
 
 ## Prerequisites
 
-* You have completed [Configure Hardware Profiles](0-platform-setup/1-hardware-profiles.md)
 * You have admin access to your OpenShift cluster
 * You have access to your cloud provider (AWS, Azure, GCP) to provision GPU instances
 * Your cluster has the necessary permissions to create new nodes
@@ -216,7 +215,7 @@ If the GPU node is not showing GPUs:
 
 ## Next Steps
 
-Now that you have GPU nodes configured, you're ready to deploy base models. Click the link below to proceed:
+Now that you have GPU nodes configured, you're ready to configure hardware profiles. Click the link below to proceed:
 
-* [🤖 Deploy Base Models](0-platform-setup/3-deploy-base-models.md)
+* [🔧 Configure Hardware Profiles](0-platform-setup/1-hardware-profiles.md)
 

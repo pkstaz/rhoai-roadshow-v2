@@ -78,7 +78,7 @@ To verify that hardware profiles are properly configured:
 
 ## Next Steps
 
-Once you have configured hardware profiles, you're ready to add GPU nodes to your cluster. Click the link below to proceed:
+Once you have configured hardware profiles, you're ready to deploy base models. Click the link below to proceed:
 
-* [🎮 Add GPU Node to Cluster](0-platform-setup/2-add-gpu-node.md)
+* [🤖 Deploy Base Models](0-platform-setup/3-deploy-base-models.md)
 
