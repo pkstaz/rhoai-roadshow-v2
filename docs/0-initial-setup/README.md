@@ -18,7 +18,7 @@ In this module, you will:
 
 ## Agenda
 
-* [📈 Scale Worker Node](0-initial-setup/1-add-gpu-node.md)
+* [📈 Scale Worker Node](0-initial-setup/1-scale-worker-node.md)
 * [🔧 Configure Hardware Profiles](0-initial-setup/2-hardware-profiles.md)
 * [🤖 Deploy Base Models](0-initial-setup/3-deploy-base-models.md)
 
