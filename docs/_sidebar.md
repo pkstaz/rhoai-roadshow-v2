@@ -4,7 +4,7 @@
   * [🏗️ Create Workspace](0-getting-connected/2-create-workspace.md)
   * [🖥️ Create Workbench](0-getting-connected/3-create-workbench.md)
 * [Initial Setup](0-initial-setup/README.md)
-  * [🎮 Add GPU Node to Cluster](0-initial-setup/1-add-gpu-node.md)
+  * [📈 Scale Worker Node](0-initial-setup/1-add-gpu-node.md)
   * [🔧 Configure Hardware Profiles](0-initial-setup/2-hardware-profiles.md)
   * [🤖 Deploy Base Models](0-initial-setup/3-deploy-base-models.md)
 * [Working with an LLM](1-llm/README.md)

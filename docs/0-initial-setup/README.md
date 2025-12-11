@@ -6,7 +6,7 @@ Before you can start working with LLMs, RAG, and other AI capabilities, you need
 
 In this module, you will:
 
-* Add GPU nodes to your OpenShift cluster to enable GPU-accelerated workloads
+* Scale worker nodes in your OpenShift cluster to ensure sufficient resources
 * Configure hardware profiles to define compute resources for your workloads
 * Deploy base models that will be used throughout the workshop
 
@@ -14,13 +14,13 @@ In this module, you will:
 
 * You have admin access to your OpenShift cluster
 * Your cluster has been provisioned with the necessary resources
-* Access to your cloud provider (AWS, Azure, GCP) to provision GPU instances
+* Access to your cloud provider (AWS, Azure, GCP) to provision instances
 
 ## Agenda
 
-* [🎮 Add GPU Node to Cluster](0-initial-setup/1-add-gpu-node.md)
+* [📈 Scale Worker Node](0-initial-setup/1-add-gpu-node.md)
 * [🔧 Configure Hardware Profiles](0-initial-setup/2-hardware-profiles.md)
 * [🤖 Deploy Base Models](0-initial-setup/3-deploy-base-models.md)
 
-Click **Add GPU Node to Cluster** to get started.
+Click **Scale Worker Node** to get started.
 

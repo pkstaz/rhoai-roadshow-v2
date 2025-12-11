@@ -1,35 +1,26 @@
-# 🎮 Add GPU Node to Cluster
+# 📈 Scale Worker Node
 
-To enable GPU-accelerated workloads in your OpenShift cluster, you need to add GPU worker nodes. This activity will guide you through adding a GPU node to your cluster, which is essential for running LLM inference and other GPU-intensive workloads.
+To ensure you have sufficient resources to run the workshop activities, you need to scale your OpenShift cluster by adding additional worker nodes. This activity will guide you through scaling worker nodes in your cluster.
 
 ## Objectives
 
 In this activity, you will:
 
-* Understand the requirements for GPU nodes in OpenShift
-* Add a GPU worker node to your cluster
-* Verify that the GPU node is available and properly configured
-* Install and configure the GPU Operator
+* Understand the resource requirements for the workshop
+* Scale worker nodes in your OpenShift cluster
+* Verify that the additional nodes are available and ready
 
 ## Prerequisites
 
 * You have admin access to your OpenShift cluster
-* You have access to your cloud provider (AWS, Azure, GCP) to provision GPU instances
+* You have access to your cloud provider (AWS, Azure, GCP) to provision instances
 * Your cluster has the necessary permissions to create new nodes
 
-## Add GPU Node to Cluster
+## Scale Worker Nodes
 
-### Step 1: Determine GPU Requirements
+### Step 1: Check Current Cluster Resources
 
-Before adding a GPU node, determine your requirements:
-
-* **GPU Type**: For this workshop, we recommend NVIDIA L4 GPUs (cost-effective, good for inference)
-* **Instance Type**: AWS `g6.8xlarge` (24GB L4 NVIDIA, 32 vCPUs, 128 GiB memory)
-* **Storage**: Ensure adequate storage for model files and data
-
-### Step 2: Add GPU Node via Machine Set (AWS Example)
-
-?> **Note** The exact method for adding nodes depends on your cloud provider. This example uses AWS Machine Sets.
+Before scaling, check your current cluster resources:
 
 1. Login to your OpenShift cluster:
 
@@ -37,185 +28,141 @@ Before adding a GPU node, determine your requirements:
 oc login --server=https://api.<CLUSTER_DOMAIN>:6443 -u admin -p <password>
 ```
 
-2. Create a MachineSet for GPU nodes. Create a file `gpu-machineset.yaml`:
-
-```yaml
-apiVersion: machine.openshift.io/v1beta1
-kind: MachineSet
-metadata:
-  name: gpu-worker-<zone>
-  namespace: openshift-machine-api
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      machine.openshift.io/cluster-api-cluster: <cluster-id>
-      machine.openshift.io/cluster-api-machine-role: worker
-      machine.openshift.io/cluster-api-machine-type: worker
-  template:
-    metadata:
-      labels:
-        machine.openshift.io/cluster-api-cluster: <cluster-id>
-        machine.openshift.io/cluster-api-machine-role: worker
-        machine.openshift.io/cluster-api-machine-type: worker
-        node-role.kubernetes.io/gpu: ""
-    spec:
-      providerSpec:
-        value:
-          ami:
-            id: <ami-id>
-          apiVersion: machine.openshift.io/v1beta1
-          credentialsSecret:
-            name: aws-cloud-credentials
-          instanceType: g6.8xlarge
-          kind: AWSMachineProviderConfig
-          placement:
-            availabilityZone: <zone>
-            region: <region>
-          securityGroups:
-          - filters:
-            - name: tag:Name
-              values:
-              - <cluster-id>-worker-sg
-          subnet:
-            filters:
-            - name: tag:Name
-              values:
-              - <cluster-id>-private-<zone>
-          tags:
-          - name: kubernetes.io/cluster/<cluster-id>
-            value: owned
-          userDataSecret:
-            name: worker-user-data
-```
-
-3. Replace the placeholders:
-   * `<cluster-id>`: Your cluster ID
-   * `<zone>`: Availability zone (e.g., `us-east-2a`)
-   * `<region>`: AWS region
-   * `<ami-id>`: AMI ID for your OpenShift version
-
-4. Apply the MachineSet:
+2. Check current nodes:
 
 ```bash
-oc apply -f gpu-machineset.yaml
+oc get nodes
 ```
 
-5. Monitor the node creation:
+3. Check current worker nodes:
+
+```bash
+oc get nodes -l node-role.kubernetes.io/worker
+```
+
+4. Check available resources:
+
+```bash
+oc top nodes
+```
+
+### Step 2: Determine Scaling Requirements
+
+For this workshop, you should have sufficient resources to run:
+* Multiple workbenches
+* Model serving instances
+* Vector databases
+* Other supporting workloads
+
+Recommended minimum:
+* **Worker Nodes**: At least 2-3 worker nodes
+* **CPU**: Minimum 8 cores per node
+* **Memory**: Minimum 32 GiB per node
+* **Storage**: Adequate storage for models and data
+
+### Step 3: Scale Worker Nodes via Machine Set (AWS Example)
+
+?> **Note** The exact method for scaling nodes depends on your cloud provider. This example uses AWS Machine Sets.
+
+1. List existing MachineSets:
+
+```bash
+oc get machineset -n openshift-machine-api
+```
+
+2. Identify the MachineSet you want to scale. Typically, you'll scale the worker MachineSet.
+
+3. Scale the MachineSet by increasing replicas. For example, to add one more worker node:
+
+```bash
+oc scale machineset <machineset-name> --replicas=<desired-count> -n openshift-machine-api
+```
+
+Or edit the MachineSet directly:
+
+```bash
+oc edit machineset <machineset-name> -n openshift-machine-api
+```
+
+Change the `spec.replicas` field to the desired number of nodes.
+
+4. Monitor the node creation:
 
 ```bash
 oc get machines -n openshift-machine-api
 oc get nodes
 ```
 
-### Step 3: Verify GPU Node is Ready
+### Step 4: Verify New Nodes are Ready
 
-1. Wait for the node to join the cluster and become ready:
+1. Wait for the new nodes to join the cluster and become ready:
 
 ```bash
-oc get nodes -l node-role.kubernetes.io/gpu
+oc get nodes -w
 ```
 
-2. Check that the node shows as `Ready`:
+2. Check that the nodes show as `Ready`:
 
 ```bash
 oc get nodes
 ```
 
-You should see your new GPU node in the list with status `Ready`.
+You should see your new worker nodes in the list with status `Ready`.
 
-### Step 4: Install GPU Operator
-
-The GPU Operator manages NVIDIA GPU resources in OpenShift. Install it if not already present:
-
-1. Check if the GPU Operator is installed:
+3. Verify node resources:
 
 ```bash
-oc get subscription -n openshift-operators | grep gpu
+oc describe node <node-name>
 ```
 
-2. If not installed, create a Subscription:
-
-```yaml
-apiVersion: operators.coreos.com/v1alpha1
-kind: Subscription
-metadata:
-  name: gpu-operator
-  namespace: openshift-operators
-spec:
-  channel: stable
-  name: gpu-operator
-  source: redhat-operators
-  sourceNamespace: openshift-marketplace
-```
-
-3. Apply the subscription:
+4. Check that the nodes have sufficient resources:
 
 ```bash
-oc apply -f gpu-operator-subscription.yaml
+oc top nodes
 ```
 
-4. Wait for the operator to install and verify:
+### Step 5: Verify Cluster Capacity
+
+1. Check overall cluster capacity:
 
 ```bash
-oc get pods -n openshift-gpu-operator
+oc get nodes -o custom-columns=NAME:.metadata.name,CPU:.status.capacity.cpu,MEMORY:.status.capacity.memory
 ```
 
-### Step 5: Label the GPU Node
-
-Label your GPU node so workloads can be scheduled on it:
-
-```bash
-oc label node <gpu-node-name> node-role.kubernetes.io/gpu=""
-oc label node <gpu-node-name> accelerator=nvidia
-```
-
-### Step 6: Verify GPU Availability
-
-1. Check that GPUs are detected:
-
-```bash
-oc get node <gpu-node-name> -o jsonpath='{.status.allocatable.nvidia\.com/gpu}'
-```
-
-2. You should see the number of GPUs available (e.g., `1`)
-
-3. Test GPU access by running a simple GPU workload or checking node resources:
-
-```bash
-oc describe node <gpu-node-name> | grep -i gpu
-```
+2. Verify you have enough resources for the workshop workloads.
 
 ## Verification Checklist
 
-- [ ] GPU node is in `Ready` state
-- [ ] GPU Operator is installed and running
-- [ ] Node is labeled with `node-role.kubernetes.io/gpu`
-- [ ] GPUs are detected and allocatable
-- [ ] Hardware profiles can use the GPU node
+- [ ] Additional worker nodes are in `Ready` state
+- [ ] Nodes have sufficient CPU and memory resources
+- [ ] Cluster has adequate capacity for workshop workloads
+- [ ] All nodes are schedulable and healthy
 
 ## Troubleshooting
 
-If the GPU node is not showing GPUs:
+If nodes are not joining the cluster:
 
-1. Check GPU Operator pods are running:
+1. Check Machine status:
    ```bash
-   oc get pods -n openshift-gpu-operator
+   oc get machines -n openshift-machine-api
+   oc describe machine <machine-name> -n openshift-machine-api
    ```
 
 2. Check node conditions:
    ```bash
-   oc describe node <gpu-node-name>
+   oc get nodes
+   oc describe node <node-name>
    ```
 
-3. Review GPU Operator logs:
+3. Review MachineSet events:
    ```bash
-   oc logs -n openshift-gpu-operator -l app=nvidia-operator-validator
+   oc get events -n openshift-machine-api --sort-by='.lastTimestamp'
    ```
+
+4. Check cloud provider quotas and limits to ensure you can provision additional instances.
 
 ## Next Steps
 
-Now that you have GPU nodes configured, you're ready to configure hardware profiles. Click the link below to proceed:
+Now that you have scaled your cluster with additional worker nodes, you're ready to configure hardware profiles. Click the link below to proceed:
 
 * [🔧 Configure Hardware Profiles](0-initial-setup/2-hardware-profiles.md)
-
