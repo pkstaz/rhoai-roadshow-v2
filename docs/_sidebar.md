@@ -4,7 +4,7 @@
 * [Initial Setup](0-initial-setup/README.md)
   * [📈 Scale Worker Node](0-initial-setup/1-scale-worker-node.md)
   * [🔧 Configure Hardware Profiles](0-initial-setup/2-hardware-profiles.md)
-  * [🏗️ Create Workspace](0-initial-setup/3-create-workspace.md)
+  * [🏗️ Create Project](0-initial-setup/3-create-workspace.md)
   * [🤖 Deploy Foundation Models](0-initial-setup/4-deploy-foundation-models.md)
   * [🖥️ Create Workbench](0-initial-setup/5-create-workbench.md)
 * [Working with an LLM](1-llm/README.md)
