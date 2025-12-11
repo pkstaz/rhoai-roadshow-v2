@@ -46,6 +46,6 @@ After logging on to OpenShift you will open the OpenShift AI platform from the A
 
 ## Next Steps
 
-Now that you have created your project, you're ready to create a workbench. Click the link below to proceed:
+Now that you have created your project, you're ready to create a workspace. Click the link below to proceed:
 
-* [🖥️ Create Workbench](0-getting-connected/2-create-workbench.md)
+* [🏗️ Create Workspace](0-getting-connected/2-create-workspace.md)
