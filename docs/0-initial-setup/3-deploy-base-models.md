@@ -14,9 +14,9 @@ In this activity, you will:
 ## Prerequisites
 
 * You have completed [Scale Worker Node](0-initial-setup/1-add-gpu-node.md)
-* GPU nodes are available and ready
+* Worker nodes are available and ready with sufficient resources
 * You have access to model repositories (Hugging Face, Red Hat AI validated models)
-* Sufficient storage and GPU memory for model deployment
+* Sufficient storage and compute resources for model deployment
 
 ## Models Required for Workshop
 
