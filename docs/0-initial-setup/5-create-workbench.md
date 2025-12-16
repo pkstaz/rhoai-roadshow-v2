@@ -14,9 +14,9 @@ This workshop uses JupyterLab for most of the activities. In this exercise we wi
 2. Enter the following details into the *Create workbench* form:  
 
     Name: **getting-connected**  
-    Image Selection: **Minimal Python**  
+    Image Selection: **Jupyter | Minimal | CPU | Python 3.12**  
     Version: **2025.1 (Recommended)**  
-    Hardware profile: **Small**  
+    Hardware profile: **default-profile**  
 
     Leave all other settings as defaults.
 
