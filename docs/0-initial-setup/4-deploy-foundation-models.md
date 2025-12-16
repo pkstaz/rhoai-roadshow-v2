@@ -6,202 +6,139 @@ Before you can start working with LLMs in the workshop, you need to deploy found
 
 In this activity, you will:
 
-* Understand which models are needed for the workshop
-* Deploy models using Red Hat AI Inference Server (RHAIIS) or vLLM
-* Verify that models are accessible and ready for use
-* Configure model endpoints for use in subsequent modules
+* Create a Serving Runtime for model deployment
+* Deploy a foundation model using the created Serving Runtime
+* Configure model resources and settings
 
 ## Prerequisites
 
-* You have completed [Scale Worker Node](0-initial-setup/1-scale-worker-node.md)
-* Worker nodes are available and ready with sufficient resources
+* You have completed [Create Project](0-initial-setup/3-create-project.md)
+* You are logged in as admin in OpenShift AI
 * You have access to model repositories (Hugging Face, Red Hat AI validated models)
 * Sufficient storage and compute resources for model deployment
 
-## Models Required for Workshop
+## Step 1: Create Serving Runtime
 
-For this workshop, you will deploy the following foundation models:
+1. Ensure you are logged in as **admin** in OpenShift AI.
 
-1. **LLM Models** (for text generation, summarization, etc.):
-   * Llama 3.2 3B (instruction-tuned)
-   * DeepSeek R1 8B (reasoning model, quantized)
-   * Llama 4 Scout 17B (Red Hat validated, MoE model)
+2. Navigate to **Settings** → **Model resources and operations** → **Serving Runtimes**
 
-2. **Embedding Model** (for RAG):
-   * all-MiniLM-L6-v2 (sentence transformers)
+3. Click **Add Serving Runtimes**
 
-## Deploy Models
+4. Configure the Serving Runtime:
 
-### Step 1: Access Model Serving Interface
+   **Select the API protocol this runtime supports** *  
+   Select: **REST**
 
-1. Login to OpenShift AI:
-   
-   <a href="https://rhods-dashboard-redhat-ods-applications.apps.<CLUSTER_DOMAIN>" target="_blank">OpenShift AI Dashboard</a>
+   **Select the model types this runtime supports** *  
+   Select: **Generative AI Model (Example LLM)**
 
-2. Navigate to **Model Serving** → **Inference Services**
+5. Click on the text **"start from scratch"**
 
-### Step 2: Deploy Llama 3.2 3B Model
+6. Copy and paste the following YAML:
 
-1. Click **Deploy model** or **Create InferenceService**
-
-2. Configure the model deployment:
-
-   **Basic Information:**
-   * **Name**: `llama-3b`
-   * **Model Framework**: `PyTorch` or `vLLM`
-   * **Model Format**: `HuggingFace`
-
-   **Model Source:**
-   * **Model URI**: `meta-llama/Llama-3.2-3B-Instruct`
-   * Or use Red Hat validated model: `RedHatAI/Llama-3.2-3B-Instruct`
-
-   **Resources:**
-   * **Hardware Profile**: Select your GPU-enabled hardware profile
-   * **GPU Count**: `1`
-   * **Memory**: `16Gi` (minimum)
-
-   **Advanced Settings:**
-   * **Max Tokens**: `15000`
-   * **Temperature**: `0.7`
-
-3. Click **Deploy** and wait for the model to be deployed
-
-4. Monitor the deployment status until it shows as `Ready`
-
-### Step 3: Deploy DeepSeek R1 8B Model
-
-1. Create a new InferenceService for DeepSeek:
-
-   **Basic Information:**
-   * **Name**: `deepseek-8b`
-   * **Model Framework**: `vLLM`
-   * **Model Format**: `HuggingFace`
-
-   **Model Source:**
-   * **Model URI**: `unsloth/DeepSeek-R1-0528-Qwen3-8B-bnb-4bit`
-   * Note: This is a 4-bit quantized model for efficiency
-
-   **Resources:**
-   * **Hardware Profile**: GPU-enabled profile
-   * **GPU Count**: `1`
-   * **Memory**: `18Gi` (quantized model requires less memory)
-
-   **Advanced Settings:**
-   * **Max Tokens**: `10000`
-   * **Quantization**: `4-bit`
-
-2. Deploy and wait for readiness
-
-### Step 4: Deploy Embedding Model
-
-1. Create InferenceService for embeddings:
-
-   **Basic Information:**
-   * **Name**: `all-minilm-l6-v2`
-   * **Model Framework**: `Sentence Transformers`
-   * **Model Type**: `Embedding`
-
-   **Model Source:**
-   * **Model URI**: `sentence-transformers/all-MiniLM-L6-v2`
-
-   **Resources:**
-   * **Hardware Profile**: Can use CPU or GPU profile
-   * **Memory**: `4Gi` (embedding models are smaller)
-
-   **Advanced Settings:**
-   * **Embedding Dimension**: `384`
-
-2. Deploy the embedding model
-
-### Step 5: Configure Model Endpoints
-
-Once models are deployed, note their endpoints:
-
-1. For each deployed model, find the inference endpoint URL:
-
-```bash
-oc get inferenceservice -n <namespace>
-oc get route -n <namespace>
+```yaml
+apiVersion: serving.kserve.io/v1alpha1
+kind: ServingRuntime
+metadata:
+  name: vllm-cuda-runtime-gptoss
+  annotations:
+    openshift.io/display-name: vLLM NVIDIA GPU ServingRuntime for GPTOSS
+    opendatahub.io/recommended-accelerators: '["nvidia.com/gpu"]'
+  labels:
+    opendatahub.io/dashboard: 'true'
+spec:
+  annotations:
+    prometheus.io/port: '8080'
+    prometheus.io/path: '/metrics'
+  multiModel: false
+  supportedModelFormats:
+    - autoSelect: true
+      name: vLLM
+  containers:
+    - name: kserve-container
+      image: quay.io/cestayg/vllm:0.10.1-gptoss
+      command:
+        - python
+        - -m
+        - vllm.entrypoints.openai.api_server
+      args:
+        - "--port=8080"
+        - "--model=/mnt/models"
+        - "--served-model-name={{.Name}}"
+      env:
+        - name: HF_HOME
+          value: /tmp/hf_home
+      ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
 ```
 
-2. The endpoint will typically be in the format:
-   ```
-   https://<model-name>.<namespace>.apps.<CLUSTER_DOMAIN>/v1/models/<model-name>
-   ```
+7. Click **Create**
 
-3. Test the endpoint with a simple request:
+8. In the list of Serving Runtimes, you can drag the icon on the left (with squares) to move it to the first position in the row.
 
-```bash
-curl -X POST https://<endpoint>/v1/completions \
-  -H "Content-Type: application/json" \
-  -d '{
-    "prompt": "Hello, how are you?",
-    "max_tokens": 50
-  }'
-```
+## Step 2: Verify No Models Are Using GPU
 
-### Step 6: Verify Model Accessibility
+1. Navigate to **AI Hub** → **Deployments** and select **All projects**
 
-1. Check model serving status in OpenShift AI dashboard
+2. If you see any model in **Started** or **Running** status, click on the **three dots (⋮)** on the right side and click **Stop**
 
-2. Verify models are listed and show as `Ready`
+## Step 3: Deploy Model
 
-3. Test each model endpoint to ensure they respond correctly
+1. Select the project **ai-roadshow**
 
-4. For LLamaStack integration (if used), verify models are configured in the LLamaStack ConfigMap:
+2. Click **Deploy model**
 
-```bash
-oc get configmap llama-stack-config -n llama-stack -o yaml
-```
+3. Follow the guided step-by-step process:
 
-## Model Configuration Summary
+### Step 3.1: Model Location
 
-After deployment, you should have:
+**Where is the model currently located?**
 
-| Model | Type | Endpoint | Status |
-|-------|------|----------|--------|
-| llama-3b | LLM | `https://...` | Ready |
-| deepseek-8b | LLM | `https://...` | Ready |
-| all-minilm-l6-v2 | Embedding | `https://...` | Ready |
+* Select (from combobox): **URI**
 
-?> **Note** The Llama 4 Scout 17B model may be deployed as a Model-as-a-Service (MaaS) externally, depending on your setup. This is typically configured separately.
+* **URI**: `oci://registry.redhat.io/rhelai1/modelcar-gpt-oss-20b:1.5`
 
-## Verification Checklist
+* **Enable**: Check **Create a connection to this location** (this creates a connection object)
 
-- [ ] All required models are deployed
-- [ ] Models show as `Ready` in the dashboard
-- [ ] Model endpoints are accessible
-- [ ] Test requests to models return successful responses
-- [ ] Models are configured in LLamaStack (if applicable)
-- [ ] GPU resources are properly allocated
+* **Name**: `gpt-oss-20b`
 
-## Troubleshooting
+* **Model type**: Select (from combobox): **Generative AI Model (Example LLM)**
 
-If models fail to deploy:
+* Click **Next**
 
-1. Check pod status:
-   ```bash
-   oc get pods -n <namespace> | grep <model-name>
-   ```
+### Step 3.2: Model Deployment Configuration
 
-2. Review pod logs:
-   ```bash
-   oc logs <pod-name> -n <namespace>
-   ```
+* **Model deployment name**: `gpt-oss-20b`
 
-3. Verify GPU availability:
-   ```bash
-   oc describe node <gpu-node> | grep -i gpu
-   ```
+* **Hardware profile**: `ai-roadshow-profile`
 
-4. Check resource quotas:
-   ```bash
-   oc describe quota -n <namespace>
-   ```
+* Click on the text **"customize resources request and limits"**
+
+* Change **CPU limit** to `2`
+
+* Change **Memory limit** to `24`
+
+* **Serving runtime** *: Select **vLLM NVIDIA GPU ServingRuntime for GPTOSS**
+
+* **Number of replicas to deploy** *: `1`
+
+* Click **Next**
+
+### Step 3.3: Advanced Settings
+
+* Leave all advanced settings as default
+
+* Do not select any options
+
+* Click **Deploy model**
+
+?> **Note** This deployment can take **10 to 15 minutes** to complete.
 
 ## Next Steps
 
 Now that you have deployed foundation models, you're ready to create a workbench. Click the link below to proceed:
 
 * [🖥️ Create Workbench](0-initial-setup/5-create-workbench.md)
-
