@@ -99,7 +99,7 @@ spec:
 
 * Select (from combobox): **URI**
 
-* **URI**: `oci://registry.redhat.io/rhelai1/modelcar-gpt-oss-20b:1.5`
+* **URI**: `oci://quay.io/cestayg/modelcar-gpt-oss-20b:1.5`
 
 * **Enable**: Check **Create a connection to this location** (this creates a connection object)
 
